@@ -673,6 +673,7 @@ module com.goldenratio
             if(this._currentLevel >= this._platformManager.getTotalLevels())
             {
                 console.log("no more levels");
+                this._currentLevel = 0;
                 this.disposeGame();
                 this.initTitleScreen();
                 return;
