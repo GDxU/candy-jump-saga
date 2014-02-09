@@ -62,7 +62,7 @@ module com.goldenratio
 
         private _dieTimer:number = 0;
 
-        private _isGameStarted:boolean = false
+        private _isGameStarted:boolean = false;
 
         constructor(container:PIXI.DisplayObjectContainer, renderer:PIXI.IPixiRenderer)
         {
