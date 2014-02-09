@@ -1,0 +1,35 @@
+{
+  "resources": [
+    "export/audiosprite.ac3",
+    "export/audiosprite.mp3",
+    "export/audiosprite.m4a",
+    "export/audiosprite.ogg"
+  ],
+  "spritemap": {
+    "click": {
+      "start": 0,
+      "end": 0.2612244897959184,
+      "loop": false
+    },
+    "drop": {
+      "start": 2,
+      "end": 2.522448979591837,
+      "loop": false
+    },
+    "level_complete": {
+      "start": 4,
+      "end": 7.005147392290249,
+      "loop": false
+    },
+    "lose": {
+      "start": 9,
+      "end": 10.72408163265306,
+      "loop": false
+    },
+    "pickup": {
+      "start": 12,
+      "end": 12.626938775510204,
+      "loop": false
+    }
+  }
+}
