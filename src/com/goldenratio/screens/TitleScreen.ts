@@ -3,6 +3,7 @@
  */
 
 ///<reference path="../../../../definitions/pixi.d.ts"/>
+///<reference path="../../../../definitions/touch.d.ts"/>
 ///<reference path="../utils/DisplayObjectUtils.ts"/>
 ///<reference path="../utils/DeviceUtils.ts"/>
 ///<reference path="../GameMain.ts"/>
@@ -29,6 +30,7 @@ module com.goldenratio
         private _creditsWidth:number = 0;
 
         private _divArea:HTMLElement;
+        private _isClick:boolean = false;
 
         constructor(container:PIXI.DisplayObjectContainer)
         {
@@ -89,6 +91,8 @@ module com.goldenratio
             this._creditsWidth = this._creditGfx.width;
 
             this.onWindowClickHL = this.onWindowClickHL.bind(this);
+            this.onWindowTouchStartHL = this.onWindowTouchStartHL.bind(this);
+            this.onWindowTouchEndHL = this.onWindowTouchEndHL.bind(this);
 
             this._divArea = <HTMLElement> document.getElementById("container");
             this._divArea.addEventListener("click", this.onWindowClickHL, false);
@@ -100,14 +104,35 @@ module com.goldenratio
         private toggleWindowClick(state:boolean):void
         {
             this._divArea.removeEventListener("click", this.onWindowClickHL, false);
-            this._divArea.removeEventListener("touchend", this.onWindowClickHL, false);
+            this._divArea.removeEventListener("touchend", this.onWindowTouchEndHL, false);
+            this._divArea.removeEventListener("touchstart", this.onWindowTouchStartHL, false);
+
 
             if(state)
             {
                 this._divArea.addEventListener("click", this.onWindowClickHL, false);
-                this._divArea.addEventListener("touchend", this.onWindowClickHL, false);
+                this._divArea.addEventListener("touchend", this.onWindowTouchEndHL, false);
+                this._divArea.addEventListener("touchstart", this.onWindowTouchStartHL, false);
             }
 
+        }
+
+        private onWindowTouchStartHL(event:TouchEvent):void
+        {
+            this._isClick = true;
+        }
+
+        private onWindowTouchEndHL(event:TouchEvent):void
+        {
+            if(this._isClick == false)
+            {
+                return;
+            }
+
+            this.onWindowClickHL(null);
+
+            event.preventDefault();
+            event.stopPropagation();
         }
 
         public showGamepadConnected(state:boolean):void
@@ -142,8 +167,12 @@ module com.goldenratio
             //this.disposeTitle();
 
             //this.initLevelSelectArea();
-            event.preventDefault();
-            event.stopPropagation();
+            if(event)
+            {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
         }
 
 
